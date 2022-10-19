@@ -10,9 +10,24 @@
   &:hover{
     filter: brightness(1.08);
   }
+
+  &[disabled]{
+    cursor: not-allowed;
+    svg{
+      animation: animate 2s infinite;
+    }
+  }
 }
 
 .button_text{
   color: var(--white);
 }
 
+@keyframes animate{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
