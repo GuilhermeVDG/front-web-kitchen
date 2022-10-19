@@ -23,6 +23,8 @@ export default function Home() {
 
             <Button type='submit' loading={false} >Entrar</Button>
           </form>
+
+          <a className={styles.text}>Não possui uma conta? Cadastre-se aqui!</a>
         </div>
       </div>
     </>
