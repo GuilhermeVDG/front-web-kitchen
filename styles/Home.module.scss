@@ -16,6 +16,11 @@
   flex-direction: column;
   padding: 2rem 1.5rem;
 
+  h1{
+    padding-bottom: 1rem;
+    color: var(--white);
+  }
+
   form{
     width: 90%;
     display: flex;
