@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useState } from 'react';
+import { api } from '../services/apiClient';
 import Router from 'next/router';
 
-import { destroyCookie } from 'nookies';
+import { destroyCookie, setCookie, parseCookies } from 'nookies';
 
 type AuthContextData = {
   user: UserProps;
@@ -42,7 +43,32 @@ export function AuthProvider({ children }: AuthProviderProps){
   const isAutenticated = !!user;
 
   async function sigIn({ email, password }: SigInProps){
-    alert(`email: ${email} senha: ${password}`);
+    try {
+      const response = await api.post('/login', {
+        email,
+        password
+      });
+      
+      const { id, name, token } = response.data;
+
+      setCookie(undefined, '@mykitchen.token', token, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/'
+      });
+
+      setUser({
+        id,
+        name,
+        email
+      });
+
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+      Router.push('/dashboard');
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
   
   return(
