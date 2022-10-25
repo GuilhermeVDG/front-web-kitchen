@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import logoImg from '../../../public/logo.svg';
@@ -6,8 +6,11 @@ import styles from '../../../styles/home.module.scss';
 import { Input } from '../../components/ui/Input';
 import { Button } from "../../components/ui/Button";
 import Link from 'next/link';
+import { AuthContext } from "../../context/AuthContext";
 
 export default function SignUp() {
+  const { signUp } = useContext(AuthContext);
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +26,10 @@ export default function SignUp() {
     }
 
     setLoading(true);
+
+    await signUp({ name, email, password });
+
+    setLoading(false);
   }
 
   return (
@@ -43,7 +50,7 @@ export default function SignUp() {
 
             <Input placeholder="Digite sua senha:" type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-            <Button type='submit' loading={loading} >Entrar</Button>
+            <Button type='submit' loading={loading} >Cadastrar</Button>
           </form>
 
           <Link href='/'>

@@ -9,6 +9,7 @@ type AuthContextData = {
   isAutenticated: boolean;
   sigIn: (creadentials: SigInProps) => Promise<void>;
   signOut: () => void;
+  signUp: (credentials: SignUpProps) => Promise<void>;
 }
 
 type UserProps = {
@@ -24,6 +25,12 @@ type SigInProps = {
 
 type AuthProviderProps = {
   children: ReactNode;
+}
+
+type SignUpProps = {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -70,9 +77,25 @@ export function AuthProvider({ children }: AuthProviderProps){
       
     }
   }
+
+  async function signUp({ name, email, password }: SignUpProps){
+    try {
+      const response = await api.post('/cadastro', {
+        name,
+        email,
+        password
+      });
+
+      console.log(response);
+
+      Router.push('/');
+    } catch (error) {
+      console.log('Error: ', error); 
+    }
+  }
   
   return(
-    <AuthContext.Provider value={{ user, isAutenticated, sigIn, signOut}}>
+    <AuthContext.Provider value={{ user, isAutenticated, sigIn, signOut, signUp }}>
       {children}
     </AuthContext.Provider>
   )
