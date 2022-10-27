@@ -8,6 +8,8 @@ import { Button } from "../components/ui/Button";
 import Link from 'next/link';
 import { AuthContext } from "../context/AuthContext";
 
+import  { canSSRGuest } from '../utils/canSSRGuest'
+
 import { toast } from "react-toastify";
 
 export default function Home() {
@@ -60,3 +62,11 @@ export default function Home() {
     </>
   )
 }
+
+export const  getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {
+      
+    }
+  }
+})
