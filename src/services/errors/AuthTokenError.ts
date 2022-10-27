@@ -1,5 +1,5 @@
 export class AuthTokenError extends Error{
   constructor(){
-    super('seila');
+    super('NOT_AUTHORIZED');
   }
 }
