@@ -8,6 +8,8 @@ import { Button } from "../components/ui/Button";
 import Link from 'next/link';
 import { AuthContext } from "../context/AuthContext";
 
+import { toast } from "react-toastify";
+
 export default function Home() {
   const { sigIn } = useContext(AuthContext);
 
@@ -20,7 +22,7 @@ export default function Home() {
     event.preventDefault();
 
     if(email === '' || password === ''){
-      alert('PREENCHA OS CAMPOS DE EMAIL E SENHA');
+      toast.error('Preencha todos os campos');
       return;
     }
 
