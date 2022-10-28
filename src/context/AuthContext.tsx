@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState, useEffect } from 'react';
 import { api } from '../services/apiClient';
 import Router from 'next/router';
 import { toast } from 'react-toastify';
@@ -49,6 +49,24 @@ export function AuthProvider({ children }: AuthProviderProps){
   
   const [user, setUser] = useState<UserProps>();
   const isAutenticated = !!user;
+
+  useEffect(() => {
+    const { '@mykitchen.token': token } = parseCookies();
+
+    if(token){
+      api.get('/me').then(res => {
+        const { id, name, email } = res.data;
+
+        setUser({
+          id,
+          name,
+          email
+        });
+      }).catch(() => {
+        signOut();
+      })
+    }
+  }, [])
 
   async function sigIn({ email, password }: SigInProps){
     try {
