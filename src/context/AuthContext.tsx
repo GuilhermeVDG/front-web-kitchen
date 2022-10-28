@@ -41,7 +41,7 @@ export function signOut(){
     destroyCookie(undefined, '@mykitchen.token');
     Router.push('/');
   } catch{
-    console.log('error to signout')
+    console.log('error to signout')       
   }
 }
 
