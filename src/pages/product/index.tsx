@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from './styles.module.scss';
 import { Header } from "../../components/Header";
+import { canSSRAuth } from "../../utils/canSSRAuth";
 
 export default function Product(){
   return(
@@ -45,4 +46,10 @@ export default function Product(){
     </>
   )
 }
+
+export const getServerSideProps = canSSRAuth(async context =>{
+  return{
+    props: {}
+  }
+})
 
