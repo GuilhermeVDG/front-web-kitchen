@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from './styles.module.scss';
 import { Header } from "../../components/Header";
 import { canSSRAuth } from "../../utils/canSSRAuth";
+import { FiUpload } from "react-icons/fi";
 
 export default function Product(){
   return(
@@ -17,6 +18,14 @@ export default function Product(){
           <h1>Novo produto</h1>
 
           <form className={styles.form}>
+            <label className={styles.labelAvatar}>
+              <span>
+                <FiUpload size={25} color='#fff'/>
+              </span>
+
+              <input type='file' accept='image/png, image/jpeg'/>
+            </label>
+            
             <select>
               <option>Categoria 1</option>
               <option>Categoria 2</option>
