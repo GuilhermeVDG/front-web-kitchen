@@ -17,9 +17,12 @@ export default function Category(){
       return;
     }
 
-    await api.post('/category', {
+    const res = await api.post('/category', {
       name: category
     });
+
+    console.log(res);
+    
 
 
 

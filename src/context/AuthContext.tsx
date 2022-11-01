@@ -54,7 +54,11 @@ export function AuthProvider({ children }: AuthProviderProps){
     const { '@mykitchen.token': token } = parseCookies();
 
     if(token){
+      console.log(token);
+      
       api.get('/me').then(res => {
+        
+        
         const { id, name, email } = res.data;
 
         setUser({
@@ -62,11 +66,12 @@ export function AuthProvider({ children }: AuthProviderProps){
           name,
           email
         });
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err);
         signOut();
       })
     }
-  }, [])
+  }, []);
 
   async function sigIn({ email, password }: SigInProps){
     try {

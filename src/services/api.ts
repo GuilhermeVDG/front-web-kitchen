@@ -5,12 +5,13 @@ import { signOut } from '../context/AuthContext';
 
 export function setupAPIClient(context = undefined){
   
-  let cookies = parseCookies(context);
+  const cookies = parseCookies(context);
+
 
   const api = axios.create({
     baseURL: 'http://localhost:3333',
     headers: {
-      Authorization: `Bearer ${cookies['mykitchen.token']}`
+      Authorization: `Bearer ${cookies['@mykitchen.token']}`
     }
   });
 
