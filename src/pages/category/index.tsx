@@ -17,15 +17,10 @@ export default function Category(){
       return;
     }
 
-    const res = await api.post('/category', {
+    await api.post('/category', {
       name: category
     });
-
-    console.log(res);
-    
-
-
-
+  
     toast.success('Categoria cadastrada com sucesso');
     setCategory('');
   }

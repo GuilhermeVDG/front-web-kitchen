@@ -54,7 +54,6 @@ export function AuthProvider({ children }: AuthProviderProps){
     const { '@mykitchen.token': token } = parseCookies();
 
     if(token){
-      console.log(token);
       
       api.get('/me').then(res => {
         
@@ -112,8 +111,6 @@ export function AuthProvider({ children }: AuthProviderProps){
         email,
         password
       });
-
-      console.log(response);
 
       toast.success('Usuario cadastrado com sucesso');
 
