@@ -4,8 +4,24 @@ import styles from './styles.module.scss';
 import { Header } from "../../components/Header";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 import { FiUpload } from "react-icons/fi";
+import { setupAPIClient } from '../../services/api';
 
-export default function Product(){
+type ItemProps = {
+  id: string;
+  name: string;
+}
+
+interface CategoryProps {
+  categoryList: ItemProps[];
+}
+
+
+export default function Product({ categoryList }: CategoryProps){
+  
+  const [categories, setCategories] = useState(categoryList || []);
+  const [categorySelected, setCategorySelected] = useState(0);
+  
+  
   const [imageAvatar, setImageAvatar] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState('');
 
@@ -53,9 +69,14 @@ export default function Product(){
               )}
             </label>
             
-            <select>
-              <option>Categoria 1</option>
-              <option>Categoria 2</option>
+            <select value={categorySelected}>
+              {categories.map((item, index) => {
+                return(
+                  <option key={item.id} value={index}>
+                    {item.name}
+                  </option>
+                )
+              })}
             </select>
 
             <input
@@ -84,8 +105,15 @@ export default function Product(){
 }
 
 export const getServerSideProps = canSSRAuth(async context =>{
+  
+  const api = setupAPIClient(context);
+  
+  const response = await api.get('/category');
+  
   return{
-    props: {}
+    props: {
+      categoryList: response.data
+    }
   }
 })
 
