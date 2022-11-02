@@ -37,6 +37,10 @@ export default function Product({ categoryList }: CategoryProps){
       setAvatarUrl(URL.createObjectURL(image));
     }
   }
+
+  function handleCategorySelected(event) {
+    setCategorySelected(event.target.value);
+  }
   
   return(
     <>
@@ -69,7 +73,7 @@ export default function Product({ categoryList }: CategoryProps){
               )}
             </label>
             
-            <select value={categorySelected}>
+            <select value={categorySelected} onChange={handleCategorySelected}>
               {categories.map((item, index) => {
                 return(
                   <option key={item.id} value={index}>
