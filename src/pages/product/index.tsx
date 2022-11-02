@@ -38,7 +38,7 @@ export default function Product({ categoryList }: CategoryProps){
 
     if(!image) return;
 
-    if(image.type === 'image/png' || image.type === 'image.jpeg'){
+    if(image.type === 'image/png' || image.type === 'image/jpeg'){
       setImageAvatar(image);
       setAvatarUrl(URL.createObjectURL(image));
     }
