@@ -62,6 +62,24 @@ export default function Dashboard({ listOrders }: HomeProps){
     setModalVisible(false);
   }
 
+  async function handleFinishOrder(id: string){
+    await api.put('/order/finish', {
+      order_id: id
+    });
+
+    const response = await api.get('/order/list');
+
+    setOrderList(response.data);
+
+    setModalVisible(false);
+  }
+
+  async function handleRefresh(){
+    const response = await api.get('/order/list');
+
+    setOrderList(response.data);
+  }
+
   Modal.setAppElement('#__next');
   
   return(
@@ -76,12 +94,16 @@ export default function Dashboard({ listOrders }: HomeProps){
     <main className={styles.container}>
       <div className={styles.containerHeader}>
         <h1>Pedidos em aberto</h1>
-        <button>
+        <button onClick={handleRefresh}>
           <FiRefreshCcw size={25} color='#3FFFA3'/>
         </button>
       </div>
 
       <article className={styles.listOrders}>
+
+        {orderList.length === 0 && (
+          <span className={styles.emptyList}>Não há pedidos em aberto</span>
+        )}
         
         {orderList.map(item => (
           <section key={item.id} className={styles.orderItem}>
@@ -100,6 +122,7 @@ export default function Dashboard({ listOrders }: HomeProps){
         isOpen={modalVisible}
         onRequestClose={handleCloseModal}
         order={modalItem}
+        handleFinishOrder={handleFinishOrder}
       />
     ) }
 
