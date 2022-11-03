@@ -20,6 +20,10 @@ interface HomeProps{
 
 export default function Dashboard({ listOrders }: HomeProps){
   const [orderList, setOrderList] = useState(listOrders || []);
+
+  async function handleOpenModalView(id: string){
+    alert(id);
+  }
   
   
   return(
@@ -43,7 +47,7 @@ export default function Dashboard({ listOrders }: HomeProps){
         
         {orderList.map(item => (
           <section key={item.id} className={styles.orderItem}>
-            <button>
+            <button onClick={() => handleOpenModalView(item.id)}>
               <div className={styles.tag}></div>
               <span>Mesa {item.table}</span>
             </button>
