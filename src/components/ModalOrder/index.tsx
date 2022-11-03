@@ -18,6 +18,7 @@ export function ModalOrder({isOpen, onRequestClose, order}: ModalOrderProps){
       rigth: 'auto',
       padding: '30px',
       transform: 'translate(-50%, -50%)',
+      marginRigth: '-50%',
       backgroundColor: '#1d1d2e',
     }
   }
@@ -29,7 +30,7 @@ export function ModalOrder({isOpen, onRequestClose, order}: ModalOrderProps){
       </button>
 
       <div className={styles.container}>
-        <h2>Order details</h2>
+        <h2>Detalhes do pedido</h2>
         <span className={styles.table}>
           Mesa: <strong>{order[0].order.table}</strong>
         </span>
@@ -37,9 +38,13 @@ export function ModalOrder({isOpen, onRequestClose, order}: ModalOrderProps){
         {order.map(item => (
           <section key={item.id} className={styles.containerItem}>
             <span>{item.amount} x <strong>{item.product.name}</strong></span>
-            <span>Descrição: {item.product.description}</span>
+            <span className={styles.productDescription}>{item.product.description}</span>
           </section>
         ))}
+
+        <button className={styles.buttonOrder} onClick={() => {}}>
+          Concluir pedido
+        </button>
       </div>
     </Modal>
   )
