@@ -156,13 +156,22 @@ export default function Product({ categoryList }: CategoryProps){
 
 export const getServerSideProps = canSSRAuth(async context =>{
   
-  const api = setupAPIClient(context);
+  try {
+    const api = setupAPIClient(context);
   
-  const response = await api.get('/category');
-  
-  return{
-    props: {
-      categoryList: response.data
+    const response = await api.get('/category');
+    
+    return{
+      props: {
+        categoryList: response.data
+      }
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: '/login',
+        statusCode: 307
+      }
     }
   }
 });

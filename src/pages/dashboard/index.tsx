@@ -132,14 +132,23 @@ export default function Dashboard({ listOrders }: HomeProps){
 }
 
 export const getServerSideProps = canSSRAuth(async ctx => {
-  const api = setupAPIClient(ctx);
+  try {
+    const api = setupAPIClient(ctx);
 
-  const response = await api.get('/order/list');
-  
-  
-  return {
-    props: {
-      listOrders: response.data
+    const response = await api.get('/order/list');
+    
+    
+    return {
+      props: {
+        listOrders: response.data
+      }
+    }
+  } catch (error) {
+    return {
+      redirect: {
+        destination: '/login',
+        statusCode: 307
+      }
     }
   }
-})
+});

@@ -69,4 +69,4 @@ export const  getServerSideProps = canSSRGuest(async (ctx) => {
       
     }
   }
-})
+});
