@@ -9,7 +9,7 @@ export function setupAPIClient(context = undefined){
 
 
   const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: 'https://backend-kitchen-v4av.onrender.com',
     headers: {
       Authorization: `Bearer ${cookies['@mykitchen.token']}`
     }
